@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom';
 function Register() {
   return (
     <div className="hero bg-base-200 min-h-screen flex items-center justify-center">
@@ -27,6 +27,7 @@ function Register() {
               <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
             </label>
           </div>
+          <h1 className='font-medium'>Already Have an Account?Please <Link to='/login'><span className='text-green-400'>Login</span></Link></h1>
           <div className="form-control mt-6">
             <button className="btn btn-primary w-full">Submit</button>
           </div>
