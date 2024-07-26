@@ -1,11 +1,12 @@
 import {createBrowserRouter} from "react-router-dom";
 import  Register from '../pages/Register.jsx';
+import Home from "../pages/Home.jsx";
 import Login from '../pages/Login.jsx'
 const router = createBrowserRouter([
   
     {
       path: "/",
-      element: <div>Doctor appointment system</div>,
+      element: <Home></Home>,
     },
     {
         path:"/register",
