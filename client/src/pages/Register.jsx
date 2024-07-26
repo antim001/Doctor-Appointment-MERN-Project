@@ -1,7 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
+import axios from 'axios';
+import toast from 'react-hot-toast'
 function Register() {
-  const submitForm=(e)=>{
+  const submitForm=async(e)=>{
     e.preventDefault();
     const form=e.target;
     const name=form.name.value;
@@ -11,6 +13,14 @@ function Register() {
       "name":name,
       "email":email,
       "password":password
+    }
+    try{
+     const response=await axios.post('http://localhost:5000/api/user/register',user);
+    if(response.data.success){
+      toast.success(response.data.message)
+    }
+    }catch(error){
+ toast.error(error)
     }
     console.log(user)
   }
