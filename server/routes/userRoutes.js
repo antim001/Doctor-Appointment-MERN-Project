@@ -28,7 +28,7 @@ router.post('/login', async (req, res) => {
   try {
     const user=await User.findOne({email:req.body.email});
     if(!user){
-      res.status(200).send({message:"user is not exist",success:false})
+      return res.status(200).send({message:"user is not exist",success:false})
     }
     const ismatch=await bcrypt.compare(req.body.password,user.password)
   if(!ismatch){
@@ -37,7 +37,7 @@ router.post('/login', async (req, res) => {
     const token=jwt.sign({id:user._id},process.env.JWT_SECRET,{
       expiresIn:"1d"
     })
-    res.status(200).send({message:"Login successful",success:true,token,data:token})
+    res.status(200).send({message:"Login successful",success:true,data:token})
   }
    } catch (error) {
     console.error(error);

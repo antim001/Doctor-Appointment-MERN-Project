@@ -16,14 +16,14 @@ function Login() {
     try{
       const response= await axios.post("http://localhost:5000/api/user/login",user)
  if(response.data.success){
-     toast.success(response.data.success)
+     toast.success(response.data.message)
    localStorage.setItem("token",response.data.data)
     navigate('/')
   }else{
-   toast("invalid")
+   toast.error(response.data.message)
  }
     }catch(error){
-      toast('error')
+      toast.error("Invalid credentials")
     }
 
   }
