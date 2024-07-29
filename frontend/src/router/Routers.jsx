@@ -6,7 +6,7 @@ import Login from '../pages/Login.jsx'
 import SignUp from '../pages/SignUp.jsx';
 import Doctor from '../pages/Doctor/Doctor.jsx';
 import DoctorDetails from '../pages/Doctor/DoctorDetails.jsx'; 
-
+import Contact from '../pages/Contact.jsx'
 
 
 
@@ -19,6 +19,7 @@ function Routers() {
       <Route path='/signup' element={<SignUp/>} />
       <Route path='/doctor' element={<Doctor />} />
       <Route path='/doctordetails' element={<DoctorDetails/>} />
+      <Route path="/contact" element={<Contact/>}/>
     </Routes>
   );
 }
