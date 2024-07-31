@@ -1,56 +1,47 @@
-import React, { useState, useEffect } from 'react';
-
+import React from 'react'
+import banner2 from '../../assets/image/banner2.jpg';
+import banner3 from '../../assets/image/banner3.jpg'
 const Banner = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = [
-    "https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp",
-    "https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp",
-    "https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp",
-    "https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 3000); // Change slide every 3 seconds
-
-    return () => clearInterval(interval); // Clean up interval on component unmount
-  }, [slides.length]);
-
   return (
-    <div className="carousel w-full">
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`carousel-item relative w-full ${index === currentSlide ? 'block' : 'hidden'}`}
-        >
-          <img src={slide} className="w-full" alt={`Slide ${index + 1}`} />
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a
-              href={`#slide${(index - 1 + slides.length) % slides.length}`}
-              className="btn btn-circle"
-              onClick={(e) => {
-                e.preventDefault();
-                setCurrentSlide((index - 1 + slides.length) % slides.length);
-              }}
-            >
-              {/* ❮
-            </a>
-            <a
-              href={`#slide${(index + 1) % slides.length}`}
-              className="btn btn-circle"
-              onClick={(e) => {
-                e.preventDefault();
-                setCurrentSlide((index + 1) % slides.length);
-              }}
-            >
-              ❯ */}
-            </a>
-          </div>
-        </div>
-      ))}
+    <div className="carousel w-full h-96">
+  <div id="slide1" className="carousel-item relative w-full">
+    <img
+      src={banner2}
+      className="w-full" />
+    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+      <a href="#slide4" className="btn btn-circle">❮</a>
+      <a href="#slide2" className="btn btn-circle">❯</a>
     </div>
-  );
-};
+  </div>
+  <div id="slide2" className="carousel-item relative w-full">
+    <img
+      src={banner3}
+      className="w-full" />
+    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+      <a href="#slide1" className="btn btn-circle">❮</a>
+      <a href="#slide3" className="btn btn-circle">❯</a>
+    </div>
+  </div>
+  <div id="slide3" className="carousel-item relative w-full">
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
+      className="w-full" />
+    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+      <a href="#slide2" className="btn btn-circle">❮</a>
+      <a href="#slide4" className="btn btn-circle">❯</a>
+    </div>
+  </div>
+  <div id="slide4" className="carousel-item relative w-full">
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
+      className="w-full" />
+    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+      <a href="#slide3" className="btn btn-circle">❮</a>
+      <a href="#slide1" className="btn btn-circle">❯</a>
+    </div>
+  </div>
+</div>
+  )
+}
 
-export default Banner;
+export default Banner
