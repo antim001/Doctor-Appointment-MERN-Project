@@ -5,6 +5,7 @@ import About from '../components/About.jsx'
 import Service from '../components/Service.jsx'
 import Feature from '../components/Feature.jsx'
 import Doctors from '../components/Doctors.jsx'
+import Faq from '../components/Faq.jsx'
 const Home = () => {
 
   return (
@@ -15,6 +16,7 @@ const Home = () => {
     <Service/>
     <Feature/>
     <Doctors/>
+    <Faq></Faq>
     </div>
 
   )
