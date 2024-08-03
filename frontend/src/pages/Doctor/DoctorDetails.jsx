@@ -1,4 +1,5 @@
-import {useState}from 'react'
+import {useState}from 'react';
+import SidePanel from '../../components/SidePanel.jsx'
 import Feedback from '../../components/Feedback.jsx'
 import DoctorAbout from '../../components/DoctorAbout.jsx'
 import StarIcon from '../../assets/image/Star.png'
@@ -48,7 +49,9 @@ const DoctorDetails = () => {
   }
 </div>
 </div>
-<div></div>
+<div>
+  <SidePanel/>
+</div>
     </div>
     </div>
   )
