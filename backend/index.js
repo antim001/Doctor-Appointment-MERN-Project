@@ -5,7 +5,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import authRoute from './routes/auth.js'; // Corrected path
 import  crypto  from 'crypto';
-
+import userRoute from './routes/user.js'
+import doctorRoute from './routes/doctor.js'
 
 dotenv.config();
 const app = express();
@@ -19,7 +20,9 @@ const corsOptions = {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
-app.use('/api/v1/auth',authRoute)
+app.use('/api/v1/auth',authRoute);
+app.use('/api/v1/user',userRoute);
+app.use('/api/v1/doctor',doctorRoute);
 
 // Database connection
 mongoose.set('strictQuery', false);
