@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link } from "react-router-dom"
+import {useEffect,useState,useContext} from 'react'
+import { Link } from "react-router-dom";
+import {authContext} from '../../../context/AuthContext.jsx'
 
 function Header() {
   const navLinks = <>
@@ -8,6 +9,7 @@ function Header() {
     <li><Link to='/service'>Service</Link></li>
     <li><Link to='/contact'>Contact</Link></li>
   </>
+  const {user,token,role}=useContext(authContext)
 
   return (
     <div className="navbar bg-base-100 sticky top-0 z-50">
@@ -41,7 +43,19 @@ function Header() {
         </ul>
       </div>
       <div className="navbar-end or-2">
-        <Link to='/login'><button className='btn btn-primary '>Login</button></Link>
+        {
+          token && user? <div >
+<Link to={`${role==='doctor'? '/doctor/profile/me':'/users/profile/me'}`}>
+<figure className='w-[35px] h-[35px] rounded-full cursor-pointer'>
+  <img src={user?.photo} alt="" />
+</figure>
+<h2>{user?.name}</h2>
+</Link>
+          </div>:
+          <Link to='/login'><button className='btn btn-primary '>
+            Login</button></Link>
+        }
+        
       </div>
     </div>
   )
