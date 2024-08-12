@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import { BASE_URL } from '/config.js';
 import { toast } from 'react-toastify';
 import { authContext } from '../../context/AuthContext.jsx';
-
+import HashLoader from 'react-spinners/HashLoader';
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -105,7 +105,9 @@ const Login = () => {
               </Link>
             </h2>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
+              <button className="btn btn-primary">
+                
+                {loading ?<HashLoader size={25} color='#fff'/>:'Login'}</button>
             </div>
           </form>
         </div>
