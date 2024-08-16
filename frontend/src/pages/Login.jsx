@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
-import { BASE_URL } from '/config.js';
+import { BASE_URL } from '../config.js';
 import { toast } from 'react-toastify';
 import { authContext } from '../../context/AuthContext.jsx';
 import HashLoader from 'react-spinners/HashLoader';

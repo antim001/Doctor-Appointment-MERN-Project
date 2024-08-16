@@ -10,7 +10,6 @@ import Contact from '../pages/Contact.jsx';
 import MyAccount from '../Dashboard/user-account/MyAccount.jsx'
 import Dashboard from '../Dashboard/doctor-account/Dashboard.jsx'
 import ProtectedRoute from './ProtectedRoute.jsx'
-
 function Routers() {
   return (
     <Routes>

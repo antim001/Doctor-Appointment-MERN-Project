@@ -4,7 +4,7 @@ import uploadImageToCloudinary from '../utils/uploadCloudinary.js';
 import avatar from './../assets/image/doctor-img01.png';
 import signup from './../assets/image/signup.gif';
 import { toast } from 'react-toastify';
-import { BASE_URL } from '/config.js';
+import { BASE_URL } from '../config.js';
 import HashLoader from 'react-spinners/HashLoader';
 
 const SignUp = () => {

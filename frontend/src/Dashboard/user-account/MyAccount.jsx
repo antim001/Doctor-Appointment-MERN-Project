@@ -1,11 +1,15 @@
 import {useContext,useState} from 'react';
 import {authContext} from '../../../context/AuthContext.jsx'
 import userImg from '../../assets/image/doctor-img01.png'
-import MyBooking from './MyBooking.jsx';
-import Profile from './Profile.jsx'
-const MyAccount = () => {
+ import MyBooking from './MyBooking.jsx';
+ import Profile from './Profile.jsx';
+ import useGetProfile from '../../hooks/UseFetchData.jsx'
+import {BASE_URL} from '../../config.js'
+ const MyAccount = () => {
   const {dispatch} =useContext(authContext);
   const [tab,setTab] =useState('bookings')
+  const {data:userData,loading,error}=useGetProfile(`${BASE_URL}/users/profile/me`)
+  console.log(userData,'userdata')
   const handleLogout=()=>{
     dispatch({type:'LOGOUT'})
   }
