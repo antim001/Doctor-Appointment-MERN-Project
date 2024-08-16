@@ -1,57 +1,40 @@
-import jwt from 'jsonwebtoken';
-import Doctor from '../models/DoctorSchema.js';
-import User from '../models/UserSchema.js';
+import jwt  from 'jsonwebtoken';
+import Doctor from '../models/DoctorSchema.js'
+import User from '../models/UserSchema.js'
 
-// Middleware to authenticate users based on roles
-export const authenticate = (roles) => async (req, res, next) => {
-    // Get token from header
-    const authToken = req.headers.authorization;
-
-    // Check if token exists and starts with 'Bearer'
-    if (!authToken || !authToken.startsWith('Bearer')) {
-        return res.status(401).json({ success: false, message: 'Please provide a valid token' });
+export const authenticate=async(req,res,next)=>{
+    const authToken=req.headers.authorization
+    if(!authToken || !authToken.startsWith('Bearer')){
+        return res.status(401).json({success:false,message:'No token,authorization denied'})
     }
+    try{
+       const token =authToken.split(" ")[1];
+       //verify token
+       const decoded=jwt.verify(token,process.env.JWT_SECRET_KEY) 
+        req.userId =decoded.id
+        req.role=decoded.role
+       next();
 
-    try {
-        // Split the token from 'Bearer ' part
-        const token = authToken.split(' ')[1];
-
-        // Verify the token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-
-        // Attach userId and role to request object
-        req.userId = decoded.id;
-        req.role = decoded.role;
-
-        next();
-    } catch (err) {
-        if (err.name === 'TokenExpiredError') {
-            return res.status(401).json({ success: false, message: 'Token has expired' });
-        }
-        return res.status(401).json({ success: false, message: 'Invalid token' });
+    }catch(err){
+      if(err.name === 'TokenExpiredError'){
+        return res.status(401).json({success:false,message:'Token expired,please login again'})
+      }
+      return res.status(401).json({success:false,message:'Invalid token,please login again'})
     }
-};
-
-// Middleware to restrict access based on roles
-export const restrict = (roles) => async (req, res, next) => {
-    const userId = req.userId;
-
-    try {
-        // Find the user by ID in User and Doctor collections
-        const user = await User.findById(userId) || await Doctor.findById(userId);
-
-        // Check if user exists
-        if (!user) {
-            return res.status(401).json({ success: false, message: 'User not found' });
-        }
-
-        // Check if user's role is included in allowed roles
-        if (!roles.includes(user.role)) {
-            return res.status(403).json({ success: false, message: 'You are not authorized' });
-        }
-
-        next();
-    } catch (err) {
-        return res.status(500).json({ success: false, message: 'Server error' });
-    }
-};
+}
+export const restrict =roles=> async(req,res,next)=>{
+    const userId = req.userId
+    let user;
+    const patient=await User.findById(userId)
+    const doctor = await Doctor.findById(userId)
+ if(patient){
+    user=patient
+ }
+ if(doctor){
+    user=doctor
+ }
+ if(!roles.includes(user.role)){
+ return res.status(401).json({success:false,message:"you are not authorize"})
+}
+next();
+}
