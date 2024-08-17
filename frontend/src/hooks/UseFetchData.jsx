@@ -1,33 +1,52 @@
-import {useEffect,useState} from 'react';
-import {token} from '../config'
-const UseFetchData = (url) => {
-  const [data,setData]=useState([])
-   const [loading,setLoading]=useState(false)
-  const [error,setError]=useState(null)
+import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { authContext } from '../../context/AuthContext';
 
-  useEffect(()=>{
- const fetchData=async()=>{
-    setLoading(true)
-    try{
-        const res=await fetch(url,{
-            headers:{Authorization:`Bearer ${token}`}
-        })
-        const result =await res.json()
-     if(!res.ok){
-        throw new Error(result.message+'0')
-     }
-     setData(result.data)
-     setLoading(false)
+const UseFetchData = (url) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { token } = useContext(authContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(url, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const result = await res.json();
+
+        if (!res.ok) {
+          if (res.status === 401) {
+            // Token is expired, redirect to login
+            throw new Error('Token expired, please login again');
+          } else {
+            throw new Error(result.message || 'Failed to fetch data');
+          }
+        }
+
+        setData(result.data);
+      } catch (err) {
+        setError(err.message);
+        if (err.message === 'Token expired, please login again') {
+          // Redirect to login page
+          navigate('/login');
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (token) {
+      fetchData();
+    } else {
+      navigate('/login');
     }
-    catch(err){
-   setLoading(false)
-   setError(err.message)
-    }}
-    fetchData()
-  },[url])
-   return {
-    data,loading,error
-   }
-}
+  }, [url, token, navigate]);
+
+  return { data, loading, error };
+};
 
 export default UseFetchData;

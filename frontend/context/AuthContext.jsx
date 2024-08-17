@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
 
 const initialState = {
-    user: localStorage.getItem('user') !== undefined ? JSON.parse(localStorage.getItem('user')) : null,
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
     role: localStorage.getItem('role') || null,
     token: localStorage.getItem('token') || null,
 };
@@ -12,6 +12,7 @@ const authReducer = (state, action) => {
     switch (action.type) {
         case 'LOGIN_START':
             return {
+                ...state,
                 user: null,
                 role: null,
                 token: null,
