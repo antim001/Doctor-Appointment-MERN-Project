@@ -4,7 +4,10 @@ import Loader from '../../components/Loader/Loading.jsx'
 import Error from '../../components/Error/Error.jsx'
 import {BASE_URL} from '../../config.js'
 import useGetProfile from '../../hooks/UseFetchData.jsx'
-import Tabs from './Tabs.jsx'
+import Tabs from './Tabs.jsx';
+import starIcon from '../../assets/image/Star.png'
+import DoctorAbout from '../../components/DoctorAbout.jsx'
+import  Profile from './Profile.jsx'
 const Dashboard = () => {
   const {data,loading,error} =useGetProfile(`${BASE_URL}/doctors/profile/me`)
  const [tab,setTab] =useState('overview')
@@ -39,9 +42,30 @@ const Dashboard = () => {
 
           </div> }
           <div className='mt-8'>
-                  {tab==='overview' && <div>Overview</div>}
+                  {tab==='overview' && <div>
+                    <div className='flex items-center gap-4 mb-24'>
+                              <figure  className='max-w-[200px] max-h-[200px]'>
+                                <img src={data?.photo} alt="" />
+                              </figure>
+                              <div>
+                                 <span className='bg-[#CCF0F3] text-blue-700 py1 px-4 lg:py-2 lg:px-6 rounded text-[12px] leading-4 lg:text-[16px] lg:leading-6 font-semibold'>Surgeon</span>
+                                 <h3 className='text-[22px] leading-9 font-bold mt-3 '>Antim Sarker</h3>
+                              <div className='flex item-center gap-[6px]'>
+                                <span className='flex items-center gap-[6px] text-[14px] leading-5 lg:text-[16px] lg:leading-6  font-semibold'><img src={starIcon} alt="" />4.5(235)</span>
+                              </div>
+                              <p className='font-[15px] lg:max-w-[390px] leading-6 '>Doctor Bio</p>
+                              </div>
+                    </div>
+                    <DoctorAbout name={data.name} about={data.about} 
+                    qualification={data.qualification}
+                    experience={data.experience}
+                    />
+                    </div>
+                    
+                    }
+
                   {tab==='appointments' && <div>Appointments</div>}
-                  {tab==='settings' && <div>Profile</div>}
+                  {tab==='settings' && <Profile/>}
             </div>
         </div>
         </div>

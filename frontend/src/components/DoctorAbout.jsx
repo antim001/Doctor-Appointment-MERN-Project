@@ -1,10 +1,10 @@
 import React from 'react'
 import {formateDate} from './../utils/FormateDate.js';
 
-const DoctorAbout = () => {
+const DoctorAbout = ({name,about,qualification,experiences}) => {
   return (
     <div>
-        <div>
+        <div >
       <h3 className='text-[20px] leading-[30px] font-semibold flex items-center gap'>About of 
         <span className='text-blue-600 font-bold text-[24px] leading-9 ml-2'> Antim Sarker</span>
       </h3>
