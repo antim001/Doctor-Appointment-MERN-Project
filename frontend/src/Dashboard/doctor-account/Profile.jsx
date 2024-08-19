@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
-
-const Profile = () => {
+import uploadImageToCloudinary from './../../utils/uploadCloudinary'
+import {BASE_URL,token} from './../../config.js'
+import {toast} from 'react-toastify'
+const Profile = ({doctorData}) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        password:'',
         phone: '',
         bio: '',
         gender: '',
@@ -12,23 +15,60 @@ const Profile = () => {
         ticketPrice: 0,
         qualifications: [],
         experiences: [],
-        timeSlots: [{day:"",startingTime:"",endingTime:""}],
+        timeSlots: [],
         about:'',
          photo:null
     
     });
-
+useEffect(()=>{
+ setFormData({
+    name:doctorData?.name,
+    email: doctorData?.email,
+        
+        phone: doctorData?.phone,
+        bio: doctorData?.bio,
+        gender: doctorData?.gender,
+        specialization: doctorData?.specialization,
+        ticketPrice: doctorData?.ticketPrice,
+        qualifications: doctorData?.qualifications,
+        experiences: doctorData?.experiences,
+        timeSlots: doctorData?.timeSlots,
+        about:doctorData?.about,
+         photo:doctorData?.photo
+ })
+},[doctorData])
     const handleInputChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
         });
     };
-const handleFileInputChange =e=>{
-   e.preventDefault()
-}
+const handleFileInputChange =async event=>{
+   const file = event.target.files[0]
+   const data= await uploadImageToCloudinary(file)
+    console.log(data)
+    setFormData({...formData,photo:data?.url})
+} 
 const updateProfileHandler=async e=>{
    e.preventDefault();
+   try{
+      const res =await fetch(`${BASE_URL}/doctors/${doctorData._id}`,{
+         method:'PUT',
+         headers:{
+            'content-type':'application/json',
+            Authorization:`Bearer ${token}`
+         },
+         body:JSON.stringify(formData)
+      })
+      const result =await res.json()
+     if(!res.ok) {
+        throw Error(result.message)
+     }
+     toast.success(result.message);
+
+   }catch(err){
+     toast.error(err.message)
+   }
 }
 //resusable function for
 const addItem = (key, item) => {
@@ -77,6 +117,7 @@ const deleteQualification =(e,index)=>{
     e.preventDefault()
     deleteItem('qualifications',index)
 }
+//experience functionality
 const addExperience = (e) => {
     e.preventDefault();
     addItem('experiences', {  // Use 'qualifications' instead of 'qualification'
@@ -93,6 +134,19 @@ const handleExperienceChange=(event,index)=>{
 const deleteExperience =(e,index)=>{
     e.preventDefault()
     deleteItem('experiences',index)
+}
+//time slot functionality
+const handleTimeSlotChange=(event,index)=>{
+    handleReusableInputChangeFunc('timeSlots',index,event)
+}
+
+const addTimeSlot=e=>{
+    e.preventDefault()
+    addItem('timeSlots',{day:"Sunday",startingTime:"10:00",endingTime:"04:30"})
+}
+const deleteTimeSlot =(e,index)=>{
+    e.preventDefault()
+    deleteItem('timeSlots',index)
 }
     
    
@@ -250,7 +304,7 @@ const deleteExperience =(e,index)=>{
                                         name='startingDate'
                                         className='w-full p-3 text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                                         value={item.startingDate}
-                                        onChange={(e) => handleExperienceChange(index, e)}
+                                        onChange={(e) => handleExperienceChange( e,index)}
                                     />
                                 </div>
                                 <div className='mt-2'>
@@ -259,7 +313,7 @@ const deleteExperience =(e,index)=>{
                                         className='w-full p-3 text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                                         name='endingDate'
                                         value={item.endingDate}
-                                        onChange={(e) => handleExperienceChange(index, e)}
+                                        onChange={(e) => handleExperienceChange(e,index)}
                                     />
                                 </div>
                             </div>
@@ -270,7 +324,7 @@ const deleteExperience =(e,index)=>{
                                         name='position'
                                         className='w-full p-3 text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                                         value={item.position}
-                                        onChange={(e) => handleExperienceChange(index, e)}
+                                        onChange={(e) => handleExperienceChange(e,index)}
                                     />
                                 </div>
                                 <div className='mt-2'>
@@ -279,7 +333,7 @@ const deleteExperience =(e,index)=>{
                                         className='w-full p-3 text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                                         name='hospital'
                                         value={item.hospital}
-                                        onChange={(e) => handleExperienceChange(index, e)}
+                                        onChange={(e) => handleExperienceChange(e,index)}
                                     />
                                 </div>
                                 <button
@@ -307,7 +361,10 @@ const deleteExperience =(e,index)=>{
                             <div className='grid grid-cols-2 md:grid-cols-4 mb-[30px] gap-5'>
                                 <div className='mt-2'>
                                     <p>Day*</p>
-                                    <select name="day" value={item.day} className='w-full p-3 text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 py-3.5'>
+                                    <select name="day" 
+                                    value={item.day} 
+                                    onChange={(e) => handleTimeSlotChange(e,index)}
+                                    className='w-full p-3 text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 py-3.5'>
                                           <option value="">Select</option>
                                           <option value="saturday">Saturday</option>
                                         <option value="sunday">Sunday</option>
@@ -324,6 +381,7 @@ const deleteExperience =(e,index)=>{
                                         className='w-full p-3 text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                                         name='startingTime'
                                         value={item.startingTime}
+                                        onChange={(e) => handleTimeSlotChange(e,index)}
                                         
                                     />
                                 </div>
@@ -333,11 +391,13 @@ const deleteExperience =(e,index)=>{
                                         className='w-full p-3 text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                                         name='endingTime'
                                         value={item.endingTime}
+                                        onChange={(e) => handleTimeSlotChange(e,index)}
                                        
                                     />
                                 </div>
                                 <div>
                                 <button
+                                 onClick={e=>deleteTimeSlot(e,index)}
                                     type="button"
                                     className='bg-red-600 rounded-full text-white text-[18px] mt-6  cursor-pointer w-12 h-12 flex items-center justify-center'
                                    
@@ -349,7 +409,10 @@ const deleteExperience =(e,index)=>{
                            
                         </div>
                     ))}
-                    <button className='bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer'>Add Time slots</button>
+                    <button onClick={addTimeSlot}
+                    className='bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer'>
+                        Add Time slots
+                        </button>
                     
                 </div>
                 <div className="mb-5">
