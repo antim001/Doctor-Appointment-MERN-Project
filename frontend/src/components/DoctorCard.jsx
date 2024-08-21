@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {Link} from 'react-router-dom'
 import starIcon from './../assets/image/Star.png'
 import { BsArrowRight } from "react-icons/bs";
@@ -25,7 +26,7 @@ const DoctorCard = ({doctor}) => {
     {/* <h3 className='text-[16px] leading-7 lg:text-[30px] font-semibold'>+{totalPatients} patients</h3> */}
 <p className='text-[14px] leading-6 font-[400] '>At {experiences && experiences[0]?.hospital}</p>
 </div>
-<Link to='/doctor' className='w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center justify-center group hover:bg-blue-400 hover::border-none '>
+<Link to={`/doctor/${doctor._id}`} className='w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center justify-center group hover:bg-blue-400 hover::border-none '>
 <BsArrowRight className='group-hover:text-white w-6 h-5'/></Link>
     </div>
     </div>

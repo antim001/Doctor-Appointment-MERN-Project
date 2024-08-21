@@ -18,7 +18,7 @@ function Routers() {
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<SignUp/>} />
       <Route path='/doctor' element={<Doctor />} />
-      <Route path='/doctordetails' element={<DoctorDetails/>} />
+      <Route path='/doctor/:id' element={<DoctorDetails/>} />
       <Route path="/contact" element={<Contact/>}/>
       <Route path="/users/profile/me" element={<ProtectedRoute allowedRoles={['patient']}><MyAccount/></ProtectedRoute>}/>
       <Route path="/doctors/profile/me" element={<ProtectedRoute allowedRoles={['doctor']}><Dashboard/></ProtectedRoute>}/>

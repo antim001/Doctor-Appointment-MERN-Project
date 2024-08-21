@@ -1,9 +1,9 @@
 import React from 'react';
 import { formateDate } from './../utils/FormateDate.js';
 
-const DoctorAbout = ({ name, about, qualification = [], experience = [] }) => {
+const DoctorAbout = ({ name, about, qualifications = [], experiences = [] }) => {
   // Debugging output
-  console.log('DoctorAbout props:', { name, about, qualification, experience });
+  console.log('DoctorAbout props:', { name, about, qualifications, experiences });
 
   return (
     <div>
@@ -20,10 +20,10 @@ const DoctorAbout = ({ name, about, qualification = [], experience = [] }) => {
       <div className='mt-12'>
         <h3 className='text-[20px] leading-[30px] font-semibold'>Education</h3>
         <ul className='pt-4 md:p-5'>
-          {qualification.length === 0 ? (
+          {qualifications.length === 0 ? (
             <p>No education data available.</p>
           ) : (
-            qualification.map((item, index) => (
+            qualifications.map((item, index) => (
               <li key={index} className='flex flex-col sm:flex-row sm:justify-between sm:items-end md:gap-5 mb-[30px]'>
                 <div>
                   <span className='text-blue-600 text-[15px] leading-6 font-semibold'>
@@ -42,10 +42,10 @@ const DoctorAbout = ({ name, about, qualification = [], experience = [] }) => {
       <div className='mt-12'>
         <h3 className='text-[20px] leading-[30px] font-semibold'>Experience</h3>
         <ul className='pt-4 md:p-5'>
-          {experience.length === 0 ? (
+          {experiences.length === 0 ? (
             <p>No experience data available.</p>
           ) : (
-            experience.map((item, index) => (
+            experiences.map((item, index) => (
               <li key={index} className='flex flex-col sm:flex-row sm:justify-between sm:items-end md:gap-5 mb-[30px]'>
                 <div>
                   <span className='text-yellow-600 text-[15px] leading-6 font-semibold'>
