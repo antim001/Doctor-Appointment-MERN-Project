@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import Doctor from '../models/DoctorSchema.js'
+import Doctor from '../models/DoctorSchema.js';
+
 const reviewSchema = new mongoose.Schema(
   {
     doctor: {
@@ -24,33 +25,42 @@ const reviewSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-reviewSchema.pre(/^find/,function(next){
+
+reviewSchema.pre(/^find/, function(next) {
   this.populate({
-    path:'user',
-    select:'name photo'
+    path: 'user',
+    select: 'name photo'
   });
   next();
-})
-reviewSchema.statics.calAverageRatings=async function(doctorId){
-  const stats=await this.aggregate([{
-    $match:{doctor:doctorId}
-  },
-  {
-    $group:{
-      _id:'$doctor',
-      numOfRating:{$sum:1},
-      avgRating:{$avg:'$rating'}
-  }
-}
-])
-await Doctor.findByIdAndDelete(doctorId,{
-  totalRating:stats[0].numOfRating,
-  calAverageRatings:stats[0].avgRating,
-})
-}
-reviewSchema.post('save',function(){
-  this.constructor.calAverageRatings(this.doctor)
-})
+});
 
+reviewSchema.statics.calAverageRatings = async function(doctorId) {
+  const stats = await this.aggregate([
+    { $match: { doctor: doctorId } },
+    {
+      $group: {
+        _id: '$doctor',
+        numOfRating: { $sum: 1 },
+        avgRating: { $avg: '$rating' }
+      }
+    }
+  ]);
+
+  if (stats.length > 0) {
+    await Doctor.findByIdAndUpdate(doctorId, {
+      totalRating: stats[0].numOfRating,
+      averageRating: stats[0].avgRating
+    });
+  } else {
+    await Doctor.findByIdAndUpdate(doctorId, {
+      totalRating: 0,
+      averageRating: 0
+    });
+  }
+};
+
+reviewSchema.post('save', function() {
+  this.constructor.calAverageRatings(this.doctor);
+});
 
 export default mongoose.model("Review", reviewSchema);

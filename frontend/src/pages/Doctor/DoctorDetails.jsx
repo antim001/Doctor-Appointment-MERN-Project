@@ -16,8 +16,8 @@ const DoctorDetails = () => {
    const{
     name,
     qualifications,
-    timeSlots,
-    about,avgRating,
+    timeSlots,reviews,
+    about,avergeRating,
     totalRating,
     photo,specialization ,
     bio,ticketPrice,
@@ -27,7 +27,7 @@ const DoctorDetails = () => {
     <div className='max-w-[1200px] px-5 mx-auto'>
   {loading && <Loader />}
   {error && <Error />}
-    <div className='grid md:grid-cols-3 gap-[50px]'>
+   { !loading && !error && <div className='grid md:grid-cols-3 gap-[50px]'>
 <div className='md:col-span-2'>
   <div className='flex items-center gap-5'>
     <figure className='max-w-[200px] max-h-[200px]'>
@@ -38,12 +38,12 @@ const DoctorDetails = () => {
    <h3 className='text-[22px] leading-9 mt-3 font-bold'>{name}</h3>
    <div className='flex items-center gap-[6px]'>
     <span className='flex items-center gap-[6px] text-[14px] leading-5 lg:text-[16px] lg:leading-7 font-semibold '>
-     <img src={StarIcon} alt="" /> {avgRating}
+     <img src={StarIcon} alt="" /> {avergeRating}
     </span>
     <span className='text-[14px] leading-5 lg:text-[16px] lg:leading-7 font-[400]'>{totalRating}</span>
    </div>
    <p className='text__para text-[14px] md:text-[15px] leading-5 lg:max-w-[390px]'>{bio}
-    dipisicing elit. Consectetur, voluptas?</p>
+</p>
     </div>
   </div>
 
@@ -70,14 +70,14 @@ const DoctorDetails = () => {
     />
   }
   {
-    tab==='feedback' && <Feedback/>
+    tab==='feedback' && <Feedback reviews={reviews} totalRating={totalRating}/>
   }
 </div>
 </div>
 <div>
   <SidePanel/>
 </div>
-    </div>
+    </div>}
     </div>
   )
 }
