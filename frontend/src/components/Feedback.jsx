@@ -11,11 +11,11 @@ const Feedback = ({reviews,totalRating}) => {
       <div className='mb-[50px]'>
         <h4 className='text-[20px] leading-[30px] font-bold mb-[30px]'>
          All reviews ({totalRating})</h4>
-    { reviews?.map((review,index)=>{
+    { reviews?.map((review,index)=>(
       <div key={index}className='flex justify-between gap-10 mb-[30px]'>
       <div className='flex gap-3'>
        <figure>
-          <img src={review.user?.photo}alt="" />
+          <img className='w-52 h-52' src={review.user?.photo}alt="" />
        </figure>
        <div>
           <h5 className='text-[16px] leading-6 text-blue-800 font-bold'>{review?.user?.name}</h5>
@@ -29,7 +29,7 @@ const Feedback = ({reviews,totalRating}) => {
          ))} 
       </div>
            </div>
-    })} 
+    ))} 
       </div>
      { !showFeedbackForm && (
        <div className='text-center'><button className='btn btn-secondary'onClick={()=>setShowFeedbackForm(true)}>Give Feedback</button>
