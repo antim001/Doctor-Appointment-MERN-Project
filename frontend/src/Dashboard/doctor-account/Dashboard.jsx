@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Loader from '../../components/Loader/Loading.jsx';
 import Error from '../../components/Error/Error.jsx';
 import { BASE_URL } from '../../config.js';
@@ -7,7 +7,7 @@ import Tabs from './Tabs.jsx';
 import starIcon from '../../assets/image/Star.png';
 import DoctorAbout from '../../components/DoctorAbout.jsx';
 import Profile from './Profile.jsx';
-import Appointments from './Appointments.jsx'
+import Appointments from './Appointments.jsx';
 
 const Dashboard = () => {
   const { data, loading, error } = useGetProfile(`${BASE_URL}/doctors/profile/me`);
@@ -66,11 +66,13 @@ const Dashboard = () => {
                         <p className='font-[15px] lg:max-w-[390px] leading-6 '>{data?.bio}</p>
                       </div>
                     </div>
+
+                    {/* Education and Experience Sections */}
                     <DoctorAbout 
                       name={data?.name} 
                       about={data?.about} 
-                      qualification={data?.qualifications} 
-                      experience={data?.experiences} 
+                      qualifications={data?.qualifications} 
+                      experiences={data?.experiences} 
                     />
                   </div>
                 )}
