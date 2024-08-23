@@ -16,6 +16,7 @@
     "react-router-dom": "^6.25.1",
     "react-spinners": "^0.14.1",
     "react-toastify": "^10.0.5",
+    "stripe": "^16.8.0",
     "swiper": "^11.1.9"
   },
   "devDependencies": {
