@@ -10,7 +10,8 @@ import Contact from '../pages/Contact.jsx';
 import MyAccount from '../Dashboard/user-account/MyAccount.jsx'
 import Dashboard from '../Dashboard/doctor-account/Dashboard.jsx'
 import ProtectedRoute from './ProtectedRoute.jsx'
-import CheckoutSuccess from '../pages/Doctor/CheckoutSuccess.jsx'
+import CheckoutSuccess from '../pages/Doctor/CheckoutSuccess.jsx';
+import Admin from '../Dashboard/admin-account/Admin.jsx'
 function Routers() {
   return (
     <Routes>
@@ -24,6 +25,8 @@ function Routers() {
       <Route path="/users/profile/me" element={<ProtectedRoute allowedRoles={['patient']}><MyAccount/></ProtectedRoute>}/>
       <Route path="/doctors/profile/me" element={<ProtectedRoute allowedRoles={['doctor']}><Dashboard/></ProtectedRoute>}/>
     <Route path='/checkout-success' element={<CheckoutSuccess/>}/>
+    <Route path="/admin/profile/me" element={<ProtectedRoute allowedRoles={['admin']}><Admin/></ProtectedRoute>}/>
+   
     </Routes>
 
   );

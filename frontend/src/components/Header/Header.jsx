@@ -1,6 +1,7 @@
 import {useEffect,useState,useContext} from 'react'
 import { Link } from "react-router-dom";
-import {authContext} from '../../../context/AuthContext.jsx'
+import {authContext} from '../../../context/AuthContext.jsx';
+import logo from '../../assets/image/logo.png'
 
 function Header() {
   const navLinks = <>
@@ -35,7 +36,7 @@ function Header() {
             {navLinks}
           </ul>
         </div>
-        <a className=" text-xl text-green-500 font-bold">E-Sheba</a>
+        <img className='w-28 h-28' src={logo} alt="" />
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
