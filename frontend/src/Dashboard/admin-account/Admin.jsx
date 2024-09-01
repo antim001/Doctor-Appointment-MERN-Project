@@ -5,6 +5,7 @@ import Appointments from './Appointments.jsx';
 import AllDoctors from './AllDoctors.jsx';
 import AllPatients from './AllPatients.jsx';
 import starIcon from '../../assets/image/Star.png';
+import logo from '../../assets/image/logo.png'
 
 const Admin = () => {
   const [tab, setTab] = useState('overview');
@@ -23,9 +24,21 @@ const Admin = () => {
                       <img src='' alt="" />
                     </figure>
                     <div>
-                      <span className='bg-[#CCF0F3] text-blue-700 py1 px-4 lg:py-2 lg:px-6 rounded text-[12px] leading-4 lg:text-[16px] lg:leading-6 font-semibold'>
-                        {/* Overview badge */}
-                      </span>
+                    <div className="flex flex-col items-center bg-gray-100 p-6 rounded-lg shadow-lg">
+  <img className="w-16 h-16 mb-4 rounded-full" src={logo} alt="Logo" />
+  <h1 className="text-2xl font-bold text-blue-600 mb-2">E-Sheba Platform</h1>
+  <h2 className="text-sm text-gray-500 mb-4">(Developed By Antim)</h2>
+
+  <div className="text-left">
+    <h2 className="text-lg text-gray-700 font-semibold mb-2">Admin Features:</h2>
+    <ul className="list-disc list-inside text-gray-600">
+      <li>Admin can see doctors and approve them</li>
+      <li>Admin can generate appointment reports and invoices</li>
+      <li>Admin can see all the registered patients</li>
+    </ul>
+  </div>
+</div>
+
                       
                       <div className='flex items-center gap-[6px]'>
                         <span className='flex items-center gap-[6px] text-[14px] leading-5 lg:text-[16px] lg:leading-6 font-semibold'>
