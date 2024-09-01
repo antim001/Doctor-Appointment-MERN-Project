@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthContext';
 
-const UseFetchData = (url) => {
+const UseFetchData = (url, dependencies = []) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -44,7 +44,7 @@ const UseFetchData = (url) => {
     } else {
       navigate('/login');
     }
-  }, [url, token, navigate]);
+  }, [url, token, navigate, ...dependencies]);
 
   return { data, loading, error };
 };

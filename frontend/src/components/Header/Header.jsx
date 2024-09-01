@@ -1,7 +1,6 @@
 import {useEffect,useState,useContext} from 'react'
 import { Link } from "react-router-dom";
-import {authContext} from '../../../context/AuthContext.jsx';
-import logo from '../../assets/image/logo.png'
+import {authContext} from '../../../context/AuthContext.jsx'
 
 function Header() {
   const navLinks = <>
@@ -36,7 +35,7 @@ function Header() {
             {navLinks}
           </ul>
         </div>
-        <img className='w-28 h-28' src={logo} alt="" />
+        <a className=" text-xl text-green-500 font-bold">E-Sheba</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -46,7 +45,13 @@ function Header() {
       <div className="navbar-end or-2">
         {
           token && user? <div >
-<Link to={`${role==='doctor'? '/doctors/profile/me':'/users/profile/me'}`}>
+<Link to={
+              role === 'doctor'
+                ? '/doctors/profile/me'
+                : role === 'admin'
+                ? '/admin/profile/me'
+                : '/users/profile/me'
+            }>
 <figure className='w-[35px] h-[35px] rounded-full cursor-pointer'>
 <img src={user?.photo} alt="User profile" />
 </figure>
