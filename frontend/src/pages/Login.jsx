@@ -42,15 +42,49 @@ const Login = () => {
           role: result.role,
         },
       });
-      console.log(result,'login data')
+      console.log(result, 'login data')
       setLoading(false);
       toast.success(result.message);
-      navigate('/');
+
+      if (result.role == "admin")
+        navigate("/admin");
+      else
+        navigate('/');
     } catch (err) {
       toast.error(err.message);
       setLoading(false);
     }
   };
+
+  const sendResetPassMail = async () => {
+    try {
+      setLoading(true);
+
+      if (!formData.email)
+        toast.warning("Enter your mail in the email field and then click on 'Forget password'");
+      else {
+        const res = await fetch(`${BASE_URL}/auth/reset_pass_mail`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: formData.email }),
+        });
+
+        const result = await res.json();
+        if (!res.ok) {
+          throw new Error(result.message);
+        }
+
+        toast.success(result.message);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+    finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="hero bg-base-200 min-h-screen">
@@ -93,7 +127,7 @@ const Login = () => {
                 required
               />
               <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
+                <a onClick={sendResetPassMail} href="#" className="label-text-alt link link-hover">
                   Forgot password?
                 </a>
               </label>
@@ -106,8 +140,8 @@ const Login = () => {
             </h2>
             <div className="form-control mt-6">
               <button className="btn btn-primary">
-                
-                {loading ?<HashLoader size={25} color='#fff'/>:'Login'}</button>
+
+                {loading ? <HashLoader size={25} color='#fff' /> : 'Login'}</button>
             </div>
           </form>
         </div>

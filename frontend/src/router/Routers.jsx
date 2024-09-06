@@ -13,6 +13,7 @@ import ProtectedRoute from './ProtectedRoute.jsx'
 import CheckoutSuccess from '../pages/Doctor/CheckoutSuccess.jsx';
 import Admin from '../Dashboard/admin-account/Admin.jsx'
 import PrintInvoice from '../pages/PrintInvoice.jsx';
+import ForgetPass from '../pages/ForgetPass.jsx';
 
 function Routers() {
   return (
@@ -28,7 +29,7 @@ function Routers() {
       <Route path="/doctors/profile/me" element={<ProtectedRoute allowedRoles={['doctor']}><Dashboard /></ProtectedRoute>} />
       <Route path='/checkout-success' element={<CheckoutSuccess />} />
       <Route path="/admin/profile/me" element={<ProtectedRoute allowedRoles={['admin']}><Admin /></ProtectedRoute>} />
-
+      <Route path='/reset-password/:token' element={<ForgetPass />} />
       <Route path="/print-invoice/:id" element={<PrintInvoice />} />
     </Routes>
   );

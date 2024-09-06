@@ -2,6 +2,7 @@ import User from '../models/UserSchema.js';
 import Doctor from '../models/DoctorSchema.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import nodemailer from "nodemailer";
 const generateToken =user=>{
   return jwt.sign({id:user._id,role:user.role},process.env.JWT_SECRET_KEY,{expiresIn:'1d'})
   
@@ -78,3 +79,78 @@ export const login = async (req, res) => {
         res.status(500).json({ success: false, message: 'failed to login' });
     }
 }
+export const sendResetPassMail = async (req, res) => {
+    try {
+        let user = null;
+        const patient = await User.findOne({ email: req.body.email });
+        const doctor = await Doctor.findOne({ email: req.body.email });
+
+        if (patient) user = patient;
+        if (doctor) user = doctor;
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" })
+        }
+        else {
+            const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "10m", });
+
+            const transporter = nodemailer.createTransport({
+                service: "gmail",
+                auth: {
+                    user: process.env.EMAIL,
+                    pass: process.env.PASSWORD_APP_EMAIL,
+                },
+            });
+
+            // Email configuration
+            const mailOptions = {
+                from: process.env.EMAIL,
+                to: req.body.email,
+                subject: "Reset Password",
+                html: `<h1>Reset Your Password</h1>
+    <p>Click on the following link to reset your password:</p>
+    <a href="http://localhost:5173/reset-password/${token}">http://localhost:5173/reset-password/${token}</a>
+    <p>The link will expire in 10 minutes.</p>
+    <p>If you didn't request a password reset, please ignore this email.</p>`,
+            };
+
+            // Send the email
+            transporter.sendMail(mailOptions, (err, info) => {
+                if (err) {
+                    return res.status(500).send({ message: "Something went wrong" });
+                }
+
+                res.status(200).send({ message: "Check your mail inbox" });
+            });
+        }
+    } catch {
+        return res.status(500).send({ message: "Something went wrong" });
+    }
+}
+
+export const resetPassword = async (req, res) => {
+    try {
+        const decodedToken = jwt.verify(
+            req.body.token,
+            process.env.JWT_SECRET_KEY
+        );
+
+        if (!decodedToken) {
+            return res.status(401).send({ message: "Invalid operation" });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        req.body.pass = await bcrypt.hash(req.body.pass, salt);
+
+        await User.updateOne(
+            { _id: decodedToken.userId },
+            {
+                $set: { password: req.body.pass }
+            }
+        );
+
+        res.status(200).send({ message: "Password reset" });
+    } catch {
+        res.status(500).send({ message: "Something went wrong" });
+    }
+};

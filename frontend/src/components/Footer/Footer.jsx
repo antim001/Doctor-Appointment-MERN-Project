@@ -8,7 +8,7 @@ const Footer = () => {
     <p>
      E-sheba
       <br />
-      Providing reliable tech since 1992
+      Providing health service from 2022
     </p>
   </aside>
   <nav>
