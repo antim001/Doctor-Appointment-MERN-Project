@@ -16,7 +16,7 @@ const About = () => {
             <img
               src={aboutcard}
               alt=""
-              className='absolute left-20 top-20 sm:left-24 sm:top-44 md:left-28 md:top-28 lg:left-36 lg:top-52'
+              className='absolute  left-30 top-56  sm:left-20 sm:top-7 md:left-28 md:top-56 lg:left-36 lg:top-52'
             />
           </div>
         </div>

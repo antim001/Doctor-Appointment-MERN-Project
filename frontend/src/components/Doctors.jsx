@@ -1,4 +1,3 @@
-
 import DoctorCard from '../components/DoctorCard.jsx';
 import { BASE_URL } from '../config.js';
 import UseFetchData from '../hooks/UseFetchData.jsx';
@@ -19,7 +18,7 @@ const Doctors = () => {
             World-class care for everyone. Our health system offers unmatched, expert health care.
           </p>
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 lg:gap-[30px] mt-[30px] lg:mt-[55px]'>
-            {doctors.map(doctor => (
+            {doctors.slice(0, 3).map(doctor => (
               <DoctorCard doctor={doctor} key={doctor._id} />
             ))}
           </div>

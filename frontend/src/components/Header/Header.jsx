@@ -1,15 +1,43 @@
-import {useEffect,useState,useContext} from 'react'
-import { Link } from "react-router-dom";
-import {authContext} from '../../../context/AuthContext.jsx'
-import logo from '../../assets/image/logo.png'
+import { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { authContext } from '../../../context/AuthContext.jsx';
+import logo from '../../assets/image/logo.png';
+
 function Header() {
-  const navLinks = <>
-    <li><Link to='/'>Home</Link></li>
-    <li><Link to='/doctor'>Doctor</Link></li>
-    <li><Link to='/service'>Service</Link></li>
-    <li><Link to='/contact'>Contact</Link></li>
-  </>
-  const {user,token,role}=useContext(authContext)
+  const navLinks = (
+    <>
+      <li>
+        <Link
+          to="/"
+          className="relative pb-1 hover:text-green-500 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-green-500 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full">
+          Home
+        </Link>
+      </li>
+      <li>
+        <Link
+          to="/doctor"
+          className="relative pb-1 hover:text-green-500 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-green-500 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full">
+          Doctor
+        </Link>
+      </li>
+      <li>
+        <Link
+          to="/service"
+          className="relative pb-1 hover:text-green-500 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-green-500 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full">
+          Service
+        </Link>
+      </li>
+      <li>
+        <Link
+          to="/contact"
+          className="relative pb-1 hover:text-green-500 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-green-500 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full">
+          Contact
+        </Link>
+      </li>
+    </>
+  );
+
+  const { user, token, role } = useContext(authContext);
 
   return (
     <div className="navbar bg-base-100 sticky top-0 z-50">
@@ -26,7 +54,8 @@ function Header() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16" />
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
             </svg>
           </div>
           <ul
@@ -35,36 +64,39 @@ function Header() {
             {navLinks}
           </ul>
         </div>
-       <img  className='w-28 h-28'src={logo} alt="" />
+        <img className="w-28 h-28 " src={logo} alt="" />
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {navLinks}
-        </ul>
+        <ul className="menu menu-horizontal px-1 space-x-4">{navLinks}</ul>
       </div>
-      <div className="navbar-end or-2">
-        {
-          token && user? <div >
-<Link to={
-              role === 'doctor'
-                ? '/doctors/profile/me'
-                : role === 'admin'
-                ? '/admin/profile/me'
-                : '/users/profile/me'
-            }>
-<figure className='w-[35px] h-[35px] rounded-full cursor-pointer'>
-<img className='rounded-full w-11 h-11 object-cover' src={user?.photo} alt="User profile" />
-</figure>
-
-</Link>
-          </div>:
-          <Link to='/login'><button className='btn btn-primary '>
-            Login</button></Link>
-        }
-        
+      <div className="navbar-end lg:mr-20">
+        {token && user ? (
+          <div>
+            <Link
+              to={
+                role === 'doctor'
+                  ? '/doctors/profile/me'
+                  : role === 'admin'
+                  ? '/admin/profile/me'
+                  : '/users/profile/me'
+              }>
+              <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
+                <img
+                  className="rounded-full w-11 h-11 object-cover "
+                  src={user?.photo}
+                  alt="User profile"
+                />
+              </figure>
+            </Link>
+          </div>
+        ) : (
+          <Link to="/login">
+            <button className="btn btn-primary">Login</button>
+          </Link>
+        )}
       </div>
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;

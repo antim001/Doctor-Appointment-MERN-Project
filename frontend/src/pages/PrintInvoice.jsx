@@ -4,6 +4,7 @@ import { BASE_URL } from '../config.js';
 import UseFetchData from "../hooks/UseFetchData.jsx";
 import Loader from '../components/Loader/Loading.jsx';
 import Error from '../components/Error/Error.jsx';
+import logo from '../assets/image/logo.png'
 
 export default function PrintInvoice() {
     const { id } = useParams();
@@ -25,7 +26,8 @@ export default function PrintInvoice() {
             {!loading && !error && (
                 <div id="printArea">
                     <div>
-                        <h1 style={{ textAlign: "center", fontSize: 24, fontWeight: 800, marginTop: "2rem" }}>Online Doctor Appointment System</h1>
+                         <img className='h-40 w-40 mx-auto' src={logo} alt="" />
+                        <h1 style={{ textAlign: "center", fontSize: 24, fontWeight: 800, marginTop: "2rem" }}>E -Sheba Platform </h1>
 
                         <h3 style={{ textAlign: "center", textDecoration: "underline", fontSize: 19, fontWeight: 800 }}>Appointment Invoice</h3>
 

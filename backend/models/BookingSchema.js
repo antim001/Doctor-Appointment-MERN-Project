@@ -23,13 +23,21 @@ const bookingSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    appointmentDate: {
+      type: String,
+      required: true
+    },
+    appointmentTime: {
+      type: String,
+      required: true
+    }
   },
   { timestamps: true }
 );
 bookingSchema.pre(/^find/,function(next){
   this.populate("user").populate({
     path: "doctor",
-    select:"name"
+    select: "name"
   });
   next();
 });

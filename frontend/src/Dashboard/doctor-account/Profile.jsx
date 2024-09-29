@@ -219,6 +219,8 @@ const deleteTimeSlot =(e,index)=>{
                                 <option value="surgeon">Surgeon</option>
                                 <option value="neurologist">Neurologist</option>
                                 <option value="dermatologist">Dermatologist</option>
+                                <option value="dentist">Dentist</option>
+                                <option value="cardiologist">Cardiologist</option>
                             </select>
                         </div>
                         <div>

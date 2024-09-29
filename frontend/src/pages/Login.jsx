@@ -47,7 +47,7 @@ const Login = () => {
       toast.success(result.message);
 
       if (result.role == "admin")
-        navigate("/admin");
+        navigate("/");
       else
         navigate('/');
     } catch (err) {
@@ -98,7 +98,7 @@ const Login = () => {
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
           <form onSubmit={submitHandler} className="card-body">
-            <h2 className="text-center">Login Now!</h2>
+            <h2 className="text-center font-semibold text-2xl">Login Now!</h2>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>

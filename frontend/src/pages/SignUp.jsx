@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import uploadImageToCloudinary from '../utils/uploadCloudinary.js';
-import avatar from './../assets/image/doctor-img01.png';
-import signup from './../assets/image/signup.gif';
+
+import signup from './../assets/image/signup.gif'; // The signup gif
 import { toast } from 'react-toastify';
 import { BASE_URL } from '../config.js';
 import HashLoader from 'react-spinners/HashLoader';
@@ -67,24 +67,26 @@ const SignUp = () => {
   };
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content">
-        <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold"></h1>
-          {/* <img src={signup} alt="" /> */}
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="bg-white shadow-lg rounded-lg w-full max-w-4xl p-8 flex flex-col lg:flex-row">
+        {/* Left Section - Image */}
+        <div className="hidden lg:flex items-center justify-center w-1/2">
+          <img src={signup} alt="Sign up gif" className="w-[300px] h-[300px]" />
         </div>
-        <div className="card bg-base-100 w-full shrink-0 shadow-2xl">
-          <form onSubmit={submitHandler} className="card-body">
-            <h2 className="text-center">Create an Account</h2>
+
+        {/* Right Section - Form */}
+        <div className="w-full lg:w-1/2">
+          <h2 className="text-3xl font-bold text-center text-indigo-700 mb-6">Create an Account</h2>
+          <form onSubmit={submitHandler} className="space-y-6">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Name</span>
+                <span className="label-text font-semibold text-gray-700">Name</span>
               </label>
               <input
                 type="text"
                 placeholder="Enter your name"
                 name="name"
-                className="input input-bordered"
+                className="input input-bordered w-full"
                 value={formData.name}
                 onChange={handleInputChange}
                 required
@@ -92,13 +94,13 @@ const SignUp = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="label-text font-semibold text-gray-700">Email</span>
               </label>
               <input
                 type="email"
                 placeholder="Email"
                 name="email"
-                className="input input-bordered"
+                className="input input-bordered w-full"
                 value={formData.email}
                 onChange={handleInputChange}
                 required
@@ -106,26 +108,26 @@ const SignUp = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Password</span>
+                <span className="label-text font-semibold text-gray-700">Password</span>
               </label>
               <input
                 type="password"
                 placeholder="Password"
                 name="password"
-                className="input input-bordered"
+                className="input input-bordered w-full"
                 value={formData.password}
                 onChange={handleInputChange}
                 required
               />
             </div>
-            <div className="flex justify-between mt-2">
-              <div className="form-control">
+            <div className="flex justify-between gap-4">
+              <div className="form-control w-1/2">
                 <label className="label">
-                  <span className="label-text">Sign Up as a:</span>
+                  <span className="label-text font-semibold text-gray-700">Sign Up as a:</span>
                 </label>
                 <select
                   name="role"
-                  className="font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
+                  className="select select-bordered w-full"
                   value={formData.role}
                   onChange={handleInputChange}
                 >
@@ -133,13 +135,13 @@ const SignUp = () => {
                   <option value="doctor">Doctor</option>
                 </select>
               </div>
-              <div className="form-control">
+              <div className="form-control w-1/2">
                 <label className="label">
-                  <span className="label-text">Gender:</span>
+                  <span className="label-text font-semibold text-gray-700">Gender:</span>
                 </label>
                 <select
                   name="gender"
-                  className="font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
+                  className="select select-bordered w-full"
                   value={formData.gender}
                   onChange={handleInputChange}
                 >
@@ -150,10 +152,11 @@ const SignUp = () => {
                 </select>
               </div>
             </div>
+
             <div className="mb-5 flex items-center gap-5">
               {selectedFile && (
-                <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-blue-300 flex items-center justify-center">
-                  <img src={previewURL} alt="" className="w-full rounded-full" />
+                <figure className="w-[60px] h-[60px] rounded-full border-2 border-blue-300 flex items-center justify-center">
+                  <img src={previewURL} alt="Profile Preview" className="w-full rounded-full" />
                 </figure>
               )}
               <div className="relative w-[130px] h-[50px]">
@@ -167,21 +170,26 @@ const SignUp = () => {
                 />
                 <label
                   htmlFor="customfile"
-                  className="btn btn-primary absolute top-0 left-0 w-full h-full flex items-center px-[0.75rem] py-[0.375rem] text-[15px] leading-6 overflow-hidden bg-[#00066ff46] text-blue font-semibold rounded-lg truncate cursor-pointer"
+                  className="btn btn-primary absolute top-0 left-0 w-full h-full flex items-center justify-center"
                 >
                   Upload Photo
                 </label>
               </div>
             </div>
-            <h2>
-              Already Have an Account? Please
+
+            <h2 className="text-sm text-center">
+              Already have an account?{' '}
               <Link to="/login">
-                {' '}
-                <span className="text-green-700 font-semibold">Login</span>
+                <span className="text-indigo-600 font-semibold">Login</span>
               </Link>
             </h2>
+
             <div className="form-control mt-6">
-              <button disabled={loading} type="submit" className="btn btn-primary">
+              <button
+                disabled={loading}
+                type="submit"
+                className="btn btn-primary w-full py-3 text-lg font-bold"
+              >
                 {loading ? <HashLoader size={35} color="#ffffff" /> : 'Sign Up'}
               </button>
             </div>
