@@ -6,6 +6,7 @@ import { BASE_URL } from '../../config.js';
 import UseFetchData from '../../hooks/UseFetchData.jsx';
 import Loader from '../../components/Loader/Loading.jsx';
 import Error from '../../components/Error/Error.jsx';
+import { ImCross } from "react-icons/im";
 
 const Doctor = () => {
   const [query, setQuery] = useState('');
@@ -50,7 +51,7 @@ const Doctor = () => {
 
       {/* Tabs for filtering by specialization */}
       <div className='flex justify-center mt-4'>
-        {['All', 'Surgeon', 'Neurologist', 'Dentist','Cardiologist'].map((specialization) => (
+        {['All', 'Surgeon', 'Neurologist', 'Dentist', 'Cardiologist', 'Dermatologist'].map((specialization) => (  // Added Dermatologist tab
           <button 
             key={specialization}
             className={`btn mx-2 ${selectedTab === specialization ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
@@ -64,10 +65,20 @@ const Doctor = () => {
       {loading && <Loader />}
       {error && <Error />}
       {!loading && !error && (
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-4'>
-          {filteredDoctors.map((doctor) => (
-            <DoctorCard doctor={doctor} key={doctor.id} />
-          ))}
+        <div>
+          {filteredDoctors.length > 0 ? (
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-4'>
+              {filteredDoctors.map((doctor) => (
+                <DoctorCard doctor={doctor} key={doctor.id} />
+              ))}
+            </div>
+          ) : (
+            <div className='flex flex-col items-center mt-10'>
+          <ImCross className='text-4xl font-bold text-red-700 mb-2' />
+           <p className='text-2xl text-red-400'>No doctors found for your search.</p>
+            </div>
+
+          )}
         </div>
       )}
       <Testimonial />

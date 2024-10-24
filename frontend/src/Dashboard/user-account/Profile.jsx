@@ -22,6 +22,7 @@ const Profile = ({ user }) => {
     setFormData({
       name: user.name,
       email: user.email,
+      password:user.password,
       photo: user.photo,
       gender: user.gender,
       bloodType: user.bloodType || '', // Assuming `user.bloodType` might be available
@@ -116,7 +117,7 @@ const Profile = ({ user }) => {
             placeholder="Password"
             name="password"
             className="input input-bordered"
-            value={formData.password}
+            
             onChange={handleInputChange}
           />
         </div>

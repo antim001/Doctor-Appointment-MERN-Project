@@ -34,6 +34,7 @@ export default function PrintInvoice() {
                         <table style={{ width: 430, margin: "2rem auto" }}>
                             {
                                 booking.map((data, index) => (
+                                    // eslint-disable-next-line react/jsx-key
                                     <tbody>
                                         <tr>
                                             <th style={{ textAlign: "left", border: "none" }}>Appointment ID</th>
@@ -53,7 +54,7 @@ export default function PrintInvoice() {
                                         <tr>
                                             <th style={{ textAlign: "left", border: "none" }}>Appointment time</th>
                                             <td style={{ border: "none" }}>:</td>
-                                            <td style={{ textAlign: "left", border: "none" }}>{data.updatedAt}</td>
+                                            <td style={{ textAlign: "left", border: "none" }}>{data.appointmentDate} at {data.appointmentTime}</td>
                                         </tr>
                                         <tr>
                                             <th style={{ textAlign: "left", border: "none" }}>Appointment fee</th>

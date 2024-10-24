@@ -11,9 +11,9 @@ export const approveAppointment = async (req, res) => {
     // Find and update the appointment in the database, and populate related data (doctor, user)
     const booking = await Booking.findByIdAndUpdate(
       bookingId, 
-      { isApproved: true },   // Set isApproved to true
-      { new: true }           // Return the updated booking document
-    ).populate('doctor').populate('user');  // Populate doctor and user data
+      { isApproved: true, status: 'approved' },  // Set isApproved to true and update status
+      { new: true }                             // Return the updated booking document
+    ).populate('doctor').populate('user');    // Populate doctor and user data
 
     // Check if the booking was found
     if (booking) {
@@ -21,10 +21,12 @@ export const approveAppointment = async (req, res) => {
       res.status(200).json({
         success: true,
         message: 'Appointment approved',
-        doctorName: booking.doctor.name,           // Doctor's name
-        appointmentDate: booking.appointmentDate,  // Appointment date
-        patientEmail: booking.user.email,          // Patient's email
-        patientName: booking.user.name             // Patient's name
+        doctorName: booking.doctor.name,            // Doctor's name
+        appointmentDate: booking.appointmentDate,   // Appointment date
+        patientEmail: booking.user.email,           // Patient's email
+        patientName: booking.user.name,             // Patient's name
+        appointmentTime: booking.appointmentTime,   // Appointment time
+        status: booking.status                       // Appointment status
       });
     } else {
       // If no booking was found

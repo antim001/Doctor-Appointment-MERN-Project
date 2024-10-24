@@ -58,7 +58,7 @@ const AllDoctors = () => {
                   <td>
                     <img src={data.photo} style={{ width: 80 }} />
                   </td>
-                  <td>Dr. {data.name}</td>
+                  <td> {data.name}</td>
                   <td>{data.email}</td>
                   <td style={{ textTransform: "capitalize" }}>{data.specialization}</td>
                   <td>{data.ticketPrice} Tk</td>

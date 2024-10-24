@@ -8,7 +8,8 @@ export const getCheckoutSession = async (req, res) => {
   try {
     const doctor = await Doctor.findById(req.params.doctorId)
     const user = await User.findById(req.userId)
-    const isAlreadyAppointed = await Booking.findOne({ doctor: req.params.doctorId, user: req.userId, appointmentDate: req.body.appointmentDate, appointmentTime: req.body.appointmentTime });
+    const isAlreadyAppointed = await Booking.findOne({ doctor: req.params.doctorId, appointmentDate: req.body.appointmentDate, appointmentTime: req.body.appointmentTime });
+    console.log(isAlreadyAppointed);
 
     if (isAlreadyAppointed != null) {
       res.status(500).json({ success: false, message: "Appointment schedule is not empty! " });

@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home.jsx';
-import Service from '../pages/Service.jsx'
-import Login from '../pages/Login.jsx'
+import Service from '../pages/Service.jsx';
+import Login from '../pages/Login.jsx';
 import SignUp from '../pages/SignUp.jsx';
 import Doctor from '../pages/Doctor/Doctor.jsx';
 import DoctorDetails from '../pages/Doctor/DoctorDetails.jsx';
 import Contact from '../pages/Contact.jsx';
-import MyAccount from '../Dashboard/user-account/MyAccount.jsx'
-import Dashboard from '../Dashboard/doctor-account/Dashboard.jsx'
-import ProtectedRoute from './ProtectedRoute.jsx'
+import MyAccount from '../Dashboard/user-account/MyAccount.jsx';
+import Dashboard from '../Dashboard/doctor-account/Dashboard.jsx';
+import ProtectedRoute from './ProtectedRoute.jsx';
 import CheckoutSuccess from '../pages/Doctor/CheckoutSuccess.jsx';
-import Admin from '../Dashboard/admin-account/Admin.jsx'
+import Admin from '../Dashboard/admin-account/Admin.jsx';
 import PrintInvoice from '../pages/PrintInvoice.jsx';
 import ForgetPass from '../pages/ForgetPass.jsx';
+import { authContext } from '../../context/AuthContext'; 
 
 function Routers() {
+  const { role } = useContext(authContext); // Dynamically get the user role from context
+
   return (
     <Routes>
-      <Route path='/' element={<Home />} />
+      <Route path='/' element={<Home userRole={role} />} />
       <Route path='/service' element={<Service />} />
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<SignUp />} />

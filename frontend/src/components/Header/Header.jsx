@@ -1,9 +1,11 @@
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { authContext } from '../../../context/AuthContext.jsx';
 import logo from '../../assets/image/logo.png';
 
 function Header() {
+  const { user, token, role } = useContext(authContext);
+
   const navLinks = (
     <>
       <li>
@@ -13,20 +15,27 @@ function Header() {
           Home
         </Link>
       </li>
-      <li>
-        <Link
-          to="/doctor"
-          className="relative pb-1 hover:text-green-500 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-green-500 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full">
-          Doctor
-        </Link>
-      </li>
-      <li>
-        <Link
-          to="/service"
-          className="relative pb-1 hover:text-green-500 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-green-500 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full">
-          Service
-        </Link>
-      </li>
+
+      {/* Only show 'Doctor' and 'Service' if the user is not a doctor */}
+      {role !== 'doctor' && (
+        <>
+          <li>
+            <Link
+              to="/doctor"
+              className="relative pb-1 hover:text-green-500 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-green-500 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full">
+              Doctor
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/service"
+              className="relative pb-1 hover:text-green-500 transition-all duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] after:w-0 after:bg-green-500 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full">
+              Service
+            </Link>
+          </li>
+        </>
+      )}
+
       <li>
         <Link
           to="/contact"
@@ -36,8 +45,6 @@ function Header() {
       </li>
     </>
   );
-
-  const { user, token, role } = useContext(authContext);
 
   return (
     <div className="navbar bg-base-100 sticky top-0 z-50">
@@ -64,7 +71,7 @@ function Header() {
             {navLinks}
           </ul>
         </div>
-        <img className="w-28 h-28 " src={logo} alt="" />
+        <img className="w-28 h-28" src={logo} alt="Logo" />
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 space-x-4">{navLinks}</ul>
@@ -82,7 +89,7 @@ function Header() {
               }>
               <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
                 <img
-                  className="rounded-full w-11 h-11 object-cover "
+                  className="rounded-full w-11 h-11 object-cover"
                   src={user?.photo}
                   alt="User profile"
                 />

@@ -1,7 +1,7 @@
 import User from '../models/UserSchema.js';
 import Booking from '../models/BookingSchema.js'
 import Doctor from '../models/DoctorSchema.js'
-
+import bcrypt from 'bcryptjs';
 export const updateRole = async (req, res) => {
   try {
     const updatedUser = await User.updateOne({
@@ -14,14 +14,28 @@ export const updateRole = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
-  const id = req.params.id
-  try {
-    const updatedUser = await User.findByIdAndUpdate(id, { $set: req.body }, { new: true })
-    res.status(200).json({ success: true, message: "Successfully Updated", data: updatedUser })
-  } catch (err) {
-    res.status(500).json({ success: false, message: "failed to update", })
+  const id = req.params.id;
+
+  // If password is provided, hash it
+  if (req.body.password) {
+    const salt = await bcrypt.genSalt(10);
+    req.body.password = await bcrypt.hash(req.body.password, salt);
   }
-}
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(id, { $set: req.body }, { new: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({ success: true, message: "Successfully Updated", data: updatedUser });
+  } catch (err) {
+    console.error('Error updating user:', err);
+    res.status(500).json({ success: false, message: "Failed to update" });
+  }
+};
+
 
 export const deleteUser = async (req, res) => {
   const id = req.params.id

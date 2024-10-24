@@ -78,9 +78,7 @@ const Tabs = ({ tab, setTab }) => {
               className='w-full bg-[#181A1E] p-3 text-white text-[16px] leading-7 rounded-md'>
               Logout
             </button>
-            <button className='w-full bg-red-600 text-white mt-4 p-3 text-[16px] leading-7 rounded-md'>
-              Delete Account
-            </button>
+           
           </div>
         </div>
       )}
@@ -129,9 +127,7 @@ const Tabs = ({ tab, setTab }) => {
             className='w-full bg-[#181A1E] p-3 text-white text-[16px] leading-7 rounded-md'>
             Logout
           </button>
-          <button className='w-full bg-red-600 text-white mt-4 p-3 text-[16px] leading-7 rounded-md'>
-            Delete Account
-          </button>
+          
         </div>
       </div>
     </div>
