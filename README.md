@@ -36,6 +36,10 @@ The Doctor Appointment System is a MERN stack application that allows patients t
 - **Email Service**: EmailJS
 
 ## Installation
+1. npm i
+
+
+## Live Link- https://doctor-appointment-mern-project-frontend.vercel.app/
 
 ### Clone the Repository
 ```bash
@@ -43,7 +47,7 @@ git clone https://github.com/yourusername/doctor-appointment-system.git
 cd doctor-appointment-system
 
 
-## Live Link- https://doctor-appointment-mern-project-frontend.vercel.app/
+
 
 
 
