@@ -17,9 +17,15 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 
+const allowedOrigins = [
+    'https://doctor-appointment-mern-project-frontend.vercel.app',
+    // Add other allowed origins if necessary
+];
+
 app.use(cors({
-    origin: 'https://doctor-appointment-mern-project-frontend.vercel.app/', // Replace with your frontend URL
-    methods: ['POST'],
+    origin: allowedOrigins,
+    methods: ['POST', 'GET', 'OPTIONS'], // Add other methods if needed
+    credentials: true, // If you are sending cookies, etc.
 }));
 const corsOptions = {
     origin: true
