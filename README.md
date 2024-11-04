@@ -5,7 +5,7 @@
 
 The Doctor Appointment System is a MERN stack application that allows patients to register, book appointments with doctors, and manage their profiles. It provides an intuitive interface for both patients and doctors, facilitating a seamless healthcare experience.
 
-![Home Page](![image](https://github.com/user-attachments/assets/328bc9f6-0ab4-470b-98fe-8dbebf92d84e))
+![Home Page]((https://github.com/user-attachments/assets/328bc9f6-0ab4-470b-98fe-8dbebf92d84e))
 
 
 ## Features
