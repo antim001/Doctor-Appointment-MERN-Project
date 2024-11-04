@@ -5,8 +5,8 @@
 
 The Doctor Appointment System is a MERN stack application that allows patients to register, book appointments with doctors, and manage their profiles. It provides an intuitive interface for both patients and doctors, facilitating a seamless healthcare experience.
 
-![Home Page](path_to_your_image/home_page.png)
-![Login Page](path_to_your_image/login_page.png)
+![Home Page](![image](https://github.com/user-attachments/assets/328bc9f6-0ab4-470b-98fe-8dbebf92d84e))
+
 
 ## Features
 
@@ -42,7 +42,7 @@ git clone https://github.com/yourusername/doctor-appointment-system.git
 cd doctor-appointment-system
 
 
-##Live Link-https://doctor-appointment-mern-project-frontend.vercel.app/
+## Live Link- https://doctor-appointment-mern-project-frontend.vercel.app/
 
 
 
