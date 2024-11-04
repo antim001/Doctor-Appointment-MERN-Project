@@ -33,7 +33,9 @@ app.use('/api/v1/bookings',bookingRoute)
 app.use('/api/v1',contactRoute);
 app.use('/api/v1/appointments', approve);
 
-
+app.get('/', (req, res) => {
+    res.send('Doctor appointment system-backend developed by Antim');
+});
 // Database connection
 mongoose.set('strictQuery', false);
 const connectDB = async () => {
