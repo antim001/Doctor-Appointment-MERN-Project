@@ -23,10 +23,10 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-    origin: allowedOrigins,
-    methods: ['POST','PUT' 'GET', 'OPTIONS'], // Add other methods if needed
-    credentials: true, // If you are sending cookies, etc.
-}));
+    origin: 'https://doctor-appointment-mern-project-frontend.vercel.app', // Allow only your frontend origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify methods you allow
+    credentials: true, // Include credentials like cookies if needed
+  }));
 const corsOptions = {
     origin: true
 };
